@@ -7,7 +7,7 @@ export default async function HomePage() {
   const session = await auth();
 
   return (
-    <div className="w-full h-full flex flex-col p-5">
+    <div className="w-full h-full flex flex-col p-5 min-h-0 flex-1">
       <TimerSection />
       {session ? (
         <UserHistory userId={session?.user.id as string} />

@@ -3,11 +3,12 @@ import { useLoginAlertlStore } from "@/stores/useLoginAlertStore";
 import { ArrowLeftIcon, AvatarIcon } from "@radix-ui/react-icons";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
+import AppLogo from "../ui/app-logo";
 
 export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const { open } = useLoginAlertlStore();
 
   const goToMyInfo = () => {
@@ -35,9 +36,19 @@ export default function Header() {
           >
             <AvatarIcon width={24} height={24} />
           </button>
-          {session?.user.nickname && `${session?.user.nickname} 님`}
+          {status === "loading" ? (
+            <span className="text-sm text-gray-400"></span>
+          ) : session?.user.nickname ? (
+            <span className="text-sm">{`${session.user.nickname} 님`}</span>
+          ) : (
+            <span className="text-sm">Guest 님</span>
+          )}
         </div>
       )}
+      <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <AppLogo size="2xl" color="black" />
+      </div>
+      <div className="w-[44px] h-[44px]"></div>
     </header>
   );
 }

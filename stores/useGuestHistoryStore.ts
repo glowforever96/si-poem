@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-export type GuestHistory = {
+export type History = {
   task: string;
   description: string;
   start: Date | null;
@@ -10,16 +10,23 @@ export type GuestHistory = {
 };
 
 type GuestHistoryState = {
-  history: GuestHistory[];
-  addHistory: (item: GuestHistory) => void;
+  history: History[];
+  createdDate: string | null;
+  addHistory: (item: History) => void;
+  resetHistory: () => void;
 };
 
 export const useGuestHistoryStore = create(
   persist<GuestHistoryState>(
     (set, get) => ({
       history: [],
-      isLoading: true,
+      createdDate: new Date().toISOString().split("T")[0],
       addHistory: (item) => set({ history: [item, ...get().history] }),
+      resetHistory: () =>
+        set({
+          history: [],
+          createdDate: new Date().toISOString().split("T")[0],
+        }),
     }),
     {
       name: "guest-history",

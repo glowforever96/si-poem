@@ -68,6 +68,12 @@ const useTimer = () => {
     resetState();
   };
 
+  const handleReset = () => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    setIsRunning(false);
+    resetState();
+  };
+
   const resetState = () => {
     setSeconds(0);
     setTask("");
@@ -85,6 +91,7 @@ const useTimer = () => {
     handleStart,
     handlePause,
     handleStop,
+    handleReset,
   };
 };
 

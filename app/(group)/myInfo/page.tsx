@@ -5,9 +5,10 @@ export default async function MyInfoPage() {
   const session = await auth();
 
   return (
-    <div>
-      MyInfo
-      {session?.user?.name}
+    <div className="flex flex-col h-screen">
+      <div>{session?.user.provider} 로그인</div>
+      <div>{session?.user.nickname}</div>
+
       <LogoutButton />
     </div>
   );

@@ -40,7 +40,7 @@ export default function LoginRequireDialog() {
           <Button
             onClick={close}
             className="cursor-pointer w-full"
-            variant="outline"
+            variant="ghost"
           >
             닫기
           </Button>
