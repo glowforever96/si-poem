@@ -7,11 +7,13 @@ export async function updateUser({
   nickname,
   image,
   provider,
+  providerId,
 }: {
   email: string;
   nickname?: string;
   image?: string;
   provider: string;
+  providerId: string;
 }) {
   const exisitingUser = await db
     .select()
@@ -24,6 +26,7 @@ export async function updateUser({
       nickname,
       image,
       provider,
+      providerId,
       createdAt: sql`(now() at time zone 'Asia/Seoul')`,
     });
   }

@@ -1,4 +1,5 @@
 import NextAuth from "next-auth";
+import Kakao from "next-auth/providers/kakao";
 import Google from "next-auth/providers/google";
 import { updateUser } from "./data/updateUser";
 import { db } from "@/db";
@@ -6,13 +7,14 @@ import { usersTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  providers: [Google],
+  providers: [Google, Kakao],
   callbacks: {
     async signIn({ user, account }) {
       await updateUser({
-        email: user.email!,
+        email: user.email ?? "",
         nickname: "",
         image: user.image ?? "",
+        providerId: account?.providerAccountId ?? "",
         provider: account?.provider ?? "",
       });
       return true;
@@ -20,20 +22,28 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async jwt({ token, account }) {
       if (account) {
         token.provider = account.provider;
+        token.providerId = account.providerAccountId;
       }
       return token;
     },
     async session({ session, token }) {
-      const dbUser = await db
-        .select()
-        .from(usersTable)
-        .where(eq(usersTable.email, session.user.email));
+      let dbUser;
+
+      if (token.provider === "kakao") {
+        dbUser = await db
+          .select()
+          .from(usersTable)
+          .where(eq(usersTable.providerId, token.providerId as string));
+      } else {
+        dbUser = await db
+          .select()
+          .from(usersTable)
+          .where(eq(usersTable.email, session.user.email));
+      }
 
       if (dbUser.length > 0) {
         session.user.id = dbUser[0].id.toString();
         session.user.nickname = dbUser[0].nickname ?? "";
-      } else {
-        session.user.nickname = "";
       }
       session.user.provider = token.provider as string;
       return session;

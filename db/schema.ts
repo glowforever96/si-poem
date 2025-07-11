@@ -12,6 +12,7 @@ export const usersTable = pgTable("users", {
   nickname: varchar("nickname", { length: 50 }),
   image: text("image"),
   provider: varchar("provider", { length: 50 }),
+  providerId: varchar("provider_id", { length: 255 }),
   createdAt: timestamp("created_at"),
 });
 

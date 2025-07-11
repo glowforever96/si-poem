@@ -15,12 +15,21 @@ export async function createHistory(history: {
   dateString: string;
 }) {
   const session = await auth();
+  let user;
 
-  const user = await db
-    .select()
-    .from(usersTable)
-    .where(eq(usersTable.email, session?.user.email as string))
-    .then((rows) => rows[0]);
+  if (session?.user.provider === "kakao") {
+    user = await db
+      .select()
+      .from(usersTable)
+      .where(eq(usersTable.id, parseInt(session?.user.id as string)))
+      .then((rows) => rows[0]);
+  } else {
+    user = await db
+      .select()
+      .from(usersTable)
+      .where(eq(usersTable.email, session?.user.email as string))
+      .then((rows) => rows[0]);
+  }
 
   if (!user) {
     throw new Error("User not found");

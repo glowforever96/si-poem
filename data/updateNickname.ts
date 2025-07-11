@@ -18,11 +18,17 @@ export async function updateNickname(nickname: string) {
   if (existingNickname.length > 0) {
     return { ok: false, error: "이미 존재하는 닉네임입니다." };
   }
-
-  await db
-    .update(usersTable)
-    .set({ nickname })
-    .where(eq(usersTable.email, session?.user.email as string));
+  if (session?.user.provider === "kakao") {
+    await db
+      .update(usersTable)
+      .set({ nickname })
+      .where(eq(usersTable.id, parseInt(session.user.id as string)));
+  } else {
+    await db
+      .update(usersTable)
+      .set({ nickname })
+      .where(eq(usersTable.email, session?.user.email as string));
+  }
 
   return { ok: true };
 }

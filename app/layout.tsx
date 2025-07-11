@@ -12,7 +12,7 @@ const suit = localFont({
 });
 
 export const metadata: Metadata = {
-  title: ": 오늘의 하루를 기록하세요.",
+  title: "si, poem: 오늘의 하루를 기록하세요.",
   description: "오늘의 하루를 기록하고 서로 응원하세요.",
 };
 
