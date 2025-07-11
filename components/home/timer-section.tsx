@@ -2,7 +2,6 @@
 import { formatTime } from "@/lib/time";
 import useTimer from "@/hooks/useTimer";
 import { Input } from "../ui/input";
-import { Textarea } from "../ui/textarea";
 import { Label } from "../ui/label";
 import { Play, Pause, Square, Trash2 } from "lucide-react";
 import { useEffect, useRef } from "react";
@@ -31,16 +30,16 @@ export default function TimerSection() {
 
   return (
     <div className="flex flex-col items-center border-b border-gray-200 pb-4">
-      <div className="rounded-xl shadow-md border bg-white py-4 px-6 flex flex-col items-center gap-2 mb-4 relative">
+      <div className="rounded-xl shadow-md border bg-white py-2 px-4 flex flex-col items-center gap-2 mb-4 relative">
         <button
           className="bg-[#FEE2E2] text-[#EF4444] absolute top-2 right-2 p-1.5 rounded-lg shadow-sm hover:shadow-md cursor-pointer transition-all duration-200 disabled:bg-gray-300 disabled:shadow-none disabled:text-[#ffffff] font-medium disabled:cursor-default hover:bg-[#FECACA]"
           onClick={handleReset}
           disabled={seconds === 0}
         >
-          <Trash2 width={15} height={15} />
+          <Trash2 width={10} height={10} />
         </button>
-        <span className="text-sm text-muted-foreground">오늘도 차곡차곡</span>
-        <div className="text-4xl font-mono tracking-[0.3em] text-gray-800">
+        <span className="text-xs text-muted-foreground">오늘도 차곡차곡</span>
+        <div className="text-3xl tracking-[0.3em] text-gray-800">
           {formatTime(seconds)}
         </div>
         <div className="flex gap-2">
@@ -90,7 +89,7 @@ export default function TimerSection() {
           >
             간단히 덧붙이고 싶은 설명이 있다면
           </Label>
-          <Textarea
+          <Input
             id="description"
             className="resize-none"
             value={description}
