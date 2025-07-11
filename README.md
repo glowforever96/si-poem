@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# si, poem - 오늘의 하루를 기록하세요
 
-## Getting Started
+**si, poem**은 여러분의 하루를 기록하고, 집중한 시간을 시각적으로 확인하며, 서로 응원할 수 있는 타임 트래커 & 커뮤니티 서비스입니다.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 주요 기능
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **집중 타이머**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+  - 작업명과 설명을 입력하고 타이머를 시작하여, 집중한 시간을 기록할 수 있습니다.
+  - 타이머 종료 시 기록이 저장됩니다.
+  - 비로그인 사용자는 기록이 임시로 저장되며, 로그인 시 DB에 영구 저장됩니다.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **오늘의 기록 확인**
 
-## Learn More
+  - 오늘 집중한 작업 내역을 한눈에 볼 수 있습니다.
+  - 기록이 없을 경우 안내 메시지가 표시됩니다.
 
-To learn more about Next.js, take a look at the following resources:
+- **차트(준비중)**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+  - 집중 기록을 다양한 차트로 시각화하여 확인할 수 있습니다.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **커뮤니티(준비중)**
 
-## Deploy on Vercel
+  - 다른 사용자와 기록을 공유하고, 서로 응원할 수 있는 커뮤니티 기능이 제공될 예정입니다.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **로그인/회원정보 관리**
+  - Google, Kakao 계정으로 간편하게 로그인할 수 있습니다.
+  - 닉네임 설정 및 로그아웃 기능을 제공합니다.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 기술 스택
+
+- **Next.js 15**
+- **React 19**
+- **TypeScript**
+- **Tailwind CSS**
+- **Zustand** (상태 관리)
+- **Drizzle ORM** (DB 연동)
+- **NextAuth.js** (소셜 로그인)
+- **shadcn/ui** (UI 컴포넌트)
+- **Neon Database** (PostgreSQL 호환 서버리스 DB)
+- **Cursor AI** (개발 도구)
+
+---
+
+## 폴더 구조
+
+- `/app` : 라우팅 및 페이지 컴포넌트
+- `/components` : UI 및 기능별 컴포넌트
+- `/data` : DB 연동 함수
+- `/db` : DB 스키마 및 연결
+- `/hooks` : 커스텀 훅
+- `/stores` : 전역 상태 관리(zustand)
+- `/lib` : 유틸리티 함수
