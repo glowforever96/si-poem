@@ -4,7 +4,7 @@ import StarsBanner from "@/components/ui/stars-banner";
 
 export default function Home() {
   return (
-    <div className="min-h-screen w-full bg-gray-900 flex flex-col p-8 relative overflow-hidden">
+    <div className="h-dvh w-full bg-gray-900 flex flex-col p-8 relative overflow-hidden">
       <StarsBanner />
       <div className="flex flex-1 flex-col justify-center items-center text-center gap-4">
         <AppLogo size="5xl" />

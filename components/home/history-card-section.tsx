@@ -15,10 +15,12 @@ export default function HistoryCardSection({
   return (
     <div className="flex flex-col gap-2 mt-3 flex-1 min-h-0">
       <div className="flex justify-between items-center">
-        <div className="text-sm text-[var(--color-text-secondary)] font-medium">
+        <div className="text-xs text-[var(--color-text-secondary)] font-medium">
           한 걸음, 한 걸음 집중의 기록
         </div>
-        <div className="text-sm text-muted-foreground">{todayString()}</div>
+        <div className="text-xs text-muted-foreground font-medium">
+          {todayString()}
+        </div>
       </div>
       {isGuest && (
         <span className="text-xs text-muted-foreground">

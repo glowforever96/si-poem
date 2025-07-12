@@ -23,7 +23,7 @@ export default function Header() {
     <header className="w-full h-[54px] bg-[var(--color-bg-secondary)] flex items-center justify-between fixed top-0 z-10 max-w-2xl px-2">
       {pathname === "/myInfo" ? (
         <button
-          className="w-[44px] h-[44px] flex items-center justify-center cursor-pointer [&_svg]:size-6"
+          className="w-[32px] h-[32px] flex items-center justify-center cursor-pointer [&_svg]:size-6"
           onClick={() => router.back()}
         >
           <ArrowLeftIcon />
@@ -31,17 +31,17 @@ export default function Header() {
       ) : (
         <div className="flex items-center text-[var(--color-text-primary)] font-semibold">
           <button
-            className="w-[44px] h-[44px] flex items-center justify-center cursor-pointer"
+            className="w-[32px] h-[32px] flex items-center justify-center cursor-pointer"
             onClick={goToMyInfo}
           >
             <AvatarIcon width={24} height={24} />
           </button>
           {status === "loading" ? (
-            <span className="text-sm text-gray-400"></span>
+            <span className="text-xs text-gray-400"></span>
           ) : session?.user.nickname ? (
-            <span className="text-sm">{`${session.user.nickname} 님`}</span>
+            <span className="text-xs">{`${session.user.nickname} 님`}</span>
           ) : (
-            <span className="text-sm">Guest 님</span>
+            <span className="text-xs">Guest 님</span>
           )}
         </div>
       )}

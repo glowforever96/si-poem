@@ -193,3 +193,20 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Swiper 커스텀 스타일 */
+.swiper-pagination {
+  margin-top: 8px;
+}
+
+.swiper-pagination-bullet {
+  width: 8px !important;
+  height: 8px !important;
+  background: #d1d5db !important;
+  opacity: 1 !important;
+  margin: 0 4px !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: #6c5ce7 !important;
+}
