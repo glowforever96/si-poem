@@ -35,3 +35,41 @@ export const formatDurationKR = (seconds: number) => {
   if (sec > 0 || result === "") result += `${sec}초`;
   return result.trim();
 };
+
+export function formatDuration(seconds: number): string {
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const remainingSeconds = seconds % 60;
+
+  if (hours > 0) {
+    return `${hours}시간 ${minutes}분`;
+  } else if (minutes > 0) {
+    return `${minutes}분`;
+  } else {
+    return `${remainingSeconds}초`;
+  }
+}
+
+// 상대적 시간 표시 함수 (예: 1분 전, 30분 전, 1시간 전)
+export function getRelativeTime(date: Date | string): string {
+  const now = new Date();
+  const targetDate = typeof date === "string" ? new Date(date) : date;
+  const diffInSeconds = Math.floor(
+    (now.getTime() - targetDate.getTime()) / 1000
+  );
+
+  if (diffInSeconds < 60) {
+    return "방금 전";
+  } else if (diffInSeconds < 3600) {
+    const minutes = Math.floor(diffInSeconds / 60);
+    return `${minutes}분 전`;
+  } else if (diffInSeconds < 86400) {
+    const hours = Math.floor(diffInSeconds / 3600);
+    return `${hours}시간 전`;
+  } else if (diffInSeconds < 2592000) {
+    const days = Math.floor(diffInSeconds / 86400);
+    return `${days}일 전`;
+  } else {
+    return targetDate.toLocaleDateString("ko-KR");
+  }
+}

@@ -28,3 +28,17 @@ export const historyTable = pgTable("history", {
   duration: integer().notNull(),
   dateString: varchar("date_string", { length: 10 }).notNull(),
 });
+
+export const communityTable = pgTable("community", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  userId: integer()
+    .notNull()
+    .references(() => usersTable.id),
+  historyId: integer()
+    .notNull()
+    .references(() => historyTable.id),
+  title: varchar({ length: 255 }).notNull(),
+  content: text("content").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});

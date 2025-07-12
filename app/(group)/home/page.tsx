@@ -1,19 +1,15 @@
-import TimerSection from "@/components/home/timer-section";
-import UserHistory from "@/components/home/user-history";
+import SwipeableHome from "@/components/home/swipeable-home";
 import { auth } from "@/auth";
-import UserHistoryGuest from "@/components/home/user-history-guest";
+import { getUserHistory } from "@/data/getUserHistory";
+import { History } from "@/stores/useGuestHistoryStore";
 
 export default async function HomePage() {
   const session = await auth();
+  let history: History[] = [];
 
-  return (
-    <div className="w-full h-full flex flex-col p-5 min-h-0 flex-1">
-      <TimerSection />
-      {session ? (
-        <UserHistory userId={session?.user.id as string} />
-      ) : (
-        <UserHistoryGuest />
-      )}
-    </div>
-  );
+  if (session?.user?.id) {
+    history = await getUserHistory(session.user.id);
+  }
+
+  return <SwipeableHome session={session} initialHistory={history} />;
 }
