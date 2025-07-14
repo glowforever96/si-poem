@@ -1,10 +1,9 @@
 "use client";
-
+import { UserHistory } from "@/types/histories";
 import HistoryCardSection from "./history-card-section";
-import { History } from "@/stores/useGuestHistoryStore";
 
 interface UserHistoryClientProps {
-  history: History[];
+  history: UserHistory[];
 }
 
 export default function UserHistoryClient({ history }: UserHistoryClientProps) {

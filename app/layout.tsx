@@ -3,6 +3,7 @@ import "./globals.css";
 import { SessionProvider } from "next-auth/react";
 import LoginRequireDialog from "@/components/ui/login-require-dialog";
 import localFont from "next/font/local";
+import { Toaster } from "@/components/ui/sonner";
 
 const suit = localFont({
   src: "../fonts/SUIT-Variable.ttf",
@@ -28,6 +29,7 @@ export default function RootLayout({
           <SessionProvider>{children}</SessionProvider>
         </main>
         <LoginRequireDialog />
+        <Toaster position="bottom-center" />
       </body>
     </html>
   );

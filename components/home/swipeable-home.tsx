@@ -5,14 +5,15 @@ import { Pagination } from "swiper/modules";
 import TimerSection from "./timer-section";
 import UserHistoryClient from "./user-history-client";
 import UserHistoryGuest from "./user-history-guest";
-import { History } from "@/stores/useGuestHistoryStore";
+import { GuestHistory } from "@/stores/useGuestHistoryStore";
+import { UserHistory } from "@/types/histories";
 
 import "swiper/css";
 import "swiper/css/pagination";
 
 interface SwipeableHomeProps {
   session: Session | null;
-  initialHistory: History[];
+  initialHistory: UserHistory[] | GuestHistory[];
 }
 
 export default function SwipeableHome({
@@ -44,7 +45,7 @@ export default function SwipeableHome({
         <SwiperSlide>
           <div className="w-full h-full flex flex-col p-3 min-h-0 flex-1">
             {session ? (
-              <UserHistoryClient history={initialHistory} />
+              <UserHistoryClient history={initialHistory as UserHistory[]} />
             ) : (
               <UserHistoryGuest />
             )}

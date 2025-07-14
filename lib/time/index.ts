@@ -16,6 +16,7 @@ export const todayString = () => {
 
 // 시간 포맷: 오전/오후 X:XX
 export const formatKoreanTime = (date: Date) => {
+  date = new Date(date);
   const h = date.getHours();
   const m = date.getMinutes().toString().padStart(2, "0");
   const isAM = h < 12;

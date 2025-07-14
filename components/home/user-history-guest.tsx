@@ -1,5 +1,8 @@
 "use client";
-import { useGuestHistoryStore } from "@/stores/useGuestHistoryStore";
+import {
+  GuestHistory,
+  useGuestHistoryStore,
+} from "@/stores/useGuestHistoryStore";
 import { useEffect, useState } from "react";
 import HistoryCardSection from "./history-card-section";
 import SkeletonHistory from "../ui/skeleton-history";
@@ -20,5 +23,5 @@ export default function UserHistoryGuest() {
 
   if (!isLoading) return <SkeletonHistory />;
 
-  return <HistoryCardSection history={history} isGuest />;
+  return <HistoryCardSection history={history as GuestHistory[]} isGuest />;
 }
