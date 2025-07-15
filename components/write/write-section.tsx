@@ -51,6 +51,9 @@ export default function WriteSection({ history }: { history: UserHistory[] }) {
           >
             날짜 선택
           </Label>
+          <p className="text-xs text-muted-foreground mb-2">
+            작업 기록이 없으면 글쓰기가 불가해요.
+          </p>
           <Select value={selectedDate} onValueChange={setSelectedDate}>
             <SelectTrigger className="w-full">
               <SelectValue placeholder="날짜를 선택하세요" />

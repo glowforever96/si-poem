@@ -19,7 +19,7 @@ export default function HistoryCard({
 
   return (
     <Card
-      className={`mb-2 p-4 ${
+      className={`mb-2 p-3 ${
         selectedMode &&
         selectedHistory?.id === (history as UserHistory).id &&
         "border-[var(--color-purple-primary)] bg-[#f5f4fd]"
@@ -40,7 +40,7 @@ export default function HistoryCard({
             {start ? formatKoreanTime(start as Date) : "-"} ~{" "}
             {end ? formatKoreanTime(end as Date) : "-"}
           </span>
-          <span className="font-medium text-[#6C5CE7]">
+          <span className="font-semibold text-[#6C5CE7] text-sm">
             총 {formatDurationKR(duration)} 집중했어요!
           </span>
         </div>

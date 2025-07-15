@@ -16,15 +16,15 @@ export default function HistoryCardSection({
   return (
     <div className="flex flex-col gap-4 mt-3 flex-1 min-h-0">
       <div className="flex justify-between items-center">
-        <div className="text-[var(--color-text-secondary)] font-bold text-lg">
+        <div className="text-[var(--color-text-secondary)] font-semibold text-lg">
           한 걸음, 한 걸음 집중의 기록
         </div>
-        <div className="text-sm text-muted-foreground font-medium">
+        <span className="text-sm text-muted-foreground font-medium">
           {todayString()}
-        </div>
+        </span>
       </div>
       {isGuest && (
-        <span className="text-sm text-muted-foreground">
+        <span className="text-xs text-muted-foreground">
           앱을 종료하면 기록이 사라집니다. 로그인 해서 전부 이용해보세요!
         </span>
       )}
