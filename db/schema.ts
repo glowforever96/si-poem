@@ -42,3 +42,16 @@ export const communityTable = pgTable("community", {
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
+
+export const commentTable = pgTable("comments", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  postId: integer("post_id")
+    .notNull()
+    .references(() => communityTable.id),
+  userId: integer("user_id")
+    .notNull()
+    .references(() => usersTable.id),
+  content: text("content").notNull(),
+  parentId: integer("parent_id"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
