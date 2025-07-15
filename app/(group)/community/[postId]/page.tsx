@@ -1,52 +1,12 @@
 import { getRelativeTime } from "@/lib/time";
 import { notFound } from "next/navigation";
-import { db } from "@/db";
-import { communityTable, usersTable, historyTable } from "@/db/schema";
-import { eq } from "drizzle-orm";
+
 import { ChatBubbleIcon } from "@radix-ui/react-icons";
 import HistoryCard from "@/components/history-card";
-
-// 서버에서 데이터를 미리 가져오는 함수
-async function getPostData(postId: string) {
-  try {
-    // 게시글과 유저 정보 조회
-    const post = await db
-      .select({
-        id: communityTable.id,
-        userId: communityTable.userId,
-        historyId: communityTable.historyId,
-        title: communityTable.title,
-        content: communityTable.content,
-        createdAt: communityTable.createdAt,
-        updatedAt: communityTable.updatedAt,
-        userNickname: usersTable.nickname,
-        userEmail: usersTable.email,
-      })
-      .from(communityTable)
-      .leftJoin(usersTable, eq(communityTable.userId, usersTable.id))
-      .where(eq(communityTable.id, parseInt(postId)))
-      .limit(1);
-
-    if (post.length === 0) {
-      return null;
-    }
-
-    // 관련 히스토리 정보 조회
-    const history = await db
-      .select()
-      .from(historyTable)
-      .where(eq(historyTable.id, post[0].historyId))
-      .limit(1);
-
-    return {
-      post: post[0],
-      history: history[0] || null,
-    };
-  } catch (error) {
-    console.error("게시글 조회 오류:", error);
-    return null;
-  }
-}
+import CommentList from "@/components/community/comment-list";
+import { getPostData } from "@/data/getPosts";
+import { getComments } from "@/data/getComments";
+import { Comment } from "@/types/histories";
 
 export default async function PostDetailPage({
   params,
@@ -54,23 +14,37 @@ export default async function PostDetailPage({
   params: Promise<{ postId: string }>;
 }) {
   const { postId } = await params;
-  const data = await getPostData(postId);
+  const [postData, commentsData] = await Promise.all([
+    getPostData(postId),
+    getComments(postId),
+  ]);
 
-  if (!data) {
+  const { post, history } = postData || {};
+  const { comments }: { comments: Comment[] } = commentsData;
+
+  if (!post || !history || !comments) {
     notFound();
   }
 
-  const { post, history } = data;
+  const commentLength = comments.length;
 
-  console.log(history);
+  const groupedComments = comments.reduce((acc, comment) => {
+    if (comment.parentId === null) {
+      // 부모 댓글
+      acc[comment.id] = {
+        ...comment,
+        replies: comments.filter((c) => c.parentId === comment.id),
+      };
+    }
+    return acc;
+  }, {} as Record<number, Comment & { replies: Comment[] }>);
 
   return (
-    <div className="flex flex-col p-4">
-      {/* 게시글 내용 */}
+    <div className="flex flex-col pt-[16px] pr-[16px] pb-[6rem] pl-[16px]">
       <div className="mb-6 border-b border-gray-200 pb-6">
         <div className="flex justify-between items-start">
           <div className="flex-1">
-            <div className="text-xl font-bold mb-2">{post.title}</div>
+            <div className="text-xl font-bold mb-3">{post.title}</div>
             <div className="flex items-center gap-2 text-sm text-gray-600">
               <span className="font-medium">
                 {post.userNickname && post.userNickname}
@@ -78,16 +52,24 @@ export default async function PostDetailPage({
               <span>•</span>
               <span>{getRelativeTime(post.createdAt || new Date())}</span>
             </div>
-            <div className="text-sm text-gray-600 mt-2">
-              <ChatBubbleIcon />
+            <div className="text-gray-600 mt-3">
+              <div className="flex items-center gap-1">
+                <ChatBubbleIcon />
+                <span className="text-xs">{commentLength}</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
       {history && <HistoryCard history={history} selectedMode={false} />}
-      <p className="text-[var(--color-text-secondary)] whitespace-pre-wrap mt-2">
+      <p className="text-[var(--color-text-secondary)] whitespace-pre-wrap mt-4 pb-6 border-b border-gray-200">
         {post.content}
       </p>
+      <CommentList
+        postId={post.id}
+        groupedComments={groupedComments}
+        commentLength={commentLength}
+      />
     </div>
   );
 }

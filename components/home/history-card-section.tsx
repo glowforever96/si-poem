@@ -3,7 +3,6 @@
 import { todayString } from "@/lib/time";
 import { ScrollArea } from "../ui/scroll-area";
 import HistoryCard from "../history-card";
-
 import { GuestHistory } from "@/stores/useGuestHistoryStore";
 import { UserHistory } from "@/types/histories";
 
@@ -14,7 +13,6 @@ export default function HistoryCardSection({
   history: UserHistory[] | GuestHistory[];
   isGuest: boolean;
 }) {
-  console.log(history);
   return (
     <div className="flex flex-col gap-4 mt-3 flex-1 min-h-0">
       <div className="flex justify-between items-center">

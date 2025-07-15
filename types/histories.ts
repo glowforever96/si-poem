@@ -8,3 +8,13 @@ export interface UserHistory {
   duration: number;
   dateString: string;
 }
+
+export interface Comment {
+  id: number;
+  postId: number;
+  userId: number;
+  content: string;
+  parentId: number | null;
+  createdAt: string;
+  userNickname: string | null;
+}
