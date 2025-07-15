@@ -10,12 +10,14 @@ interface CommentListProps {
   postId: number;
   groupedComments: Record<number, Comment & { replies: Comment[] }>;
   commentLength: number;
+  isLogined: boolean;
 }
 
 export default function CommentList({
   postId,
   groupedComments,
   commentLength,
+  isLogined,
 }: CommentListProps) {
   const [replyingTo, setReplyingTo] = useState<number | null>(null);
 
@@ -26,8 +28,16 @@ export default function CommentList({
   return (
     <div className="space-y-4 pt-6">
       <div className="space-y-4">
-        <div className="text-lg font-bold">댓글 ({commentLength})</div>
-        <CommentForm postId={postId} />
+        <div className="text-lg font-bold flex items-center justify-between">
+          <div>댓글 ({commentLength})</div>
+          {!isLogined && (
+            <span className="text-xs text-muted-foreground">
+              게스트 사용자는 읽기모드만 가능합니다.
+            </span>
+          )}
+        </div>
+        {isLogined && <CommentForm postId={postId} />}
+
         {Object.values(groupedComments).length === 0 ? (
           <div className="text-center text-sm text-gray-500 py-8">
             아직 댓글이 없습니다. 첫 번째 댓글을 작성해보세요!
@@ -50,20 +60,22 @@ export default function CommentList({
                   </div>
                 </div>
                 <p className="text-sm whitespace-pre-wrap">{comment.content}</p>
-                <div className="flex justify-end">
-                  <Button
-                    variant="secondary"
-                    size="sm"
-                    onClick={() =>
-                      setReplyingTo(
-                        replyingTo === comment.id ? null : comment.id
-                      )
-                    }
-                    className="text-xs"
-                  >
-                    {replyingTo === comment.id ? "취소" : "대댓글"}
-                  </Button>
-                </div>
+                {isLogined && (
+                  <div className="flex justify-end">
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      onClick={() =>
+                        setReplyingTo(
+                          replyingTo === comment.id ? null : comment.id
+                        )
+                      }
+                      className="text-xs"
+                    >
+                      {replyingTo === comment.id ? "취소" : "대댓글"}
+                    </Button>
+                  </div>
+                )}
               </div>
               {replyingTo === comment.id && (
                 <div className="mt-3">

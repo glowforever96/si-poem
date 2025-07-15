@@ -7,6 +7,7 @@ import CommentList from "@/components/community/comment-list";
 import { getPostData } from "@/data/getPosts";
 import { getComments } from "@/data/getComments";
 import { Comment } from "@/types/histories";
+import { auth } from "@/auth";
 
 export default async function PostDetailPage({
   params,
@@ -14,6 +15,7 @@ export default async function PostDetailPage({
   params: Promise<{ postId: string }>;
 }) {
   const { postId } = await params;
+  const session = await auth();
   const [postData, commentsData] = await Promise.all([
     getPostData(postId),
     getComments(postId),
@@ -69,6 +71,7 @@ export default async function PostDetailPage({
         postId={post.id}
         groupedComments={groupedComments}
         commentLength={commentLength}
+        isLogined={!!session?.user}
       />
     </div>
   );
