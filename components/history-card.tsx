@@ -19,10 +19,10 @@ export default function HistoryCard({
 
   return (
     <Card
-      className={`mb-2 p-3 ${
+      className={`mb-4 p-3 ${
         selectedMode &&
         selectedHistory?.id === (history as UserHistory).id &&
-        "border-[var(--color-purple-primary)] bg-[#f5f4fd]"
+        "border-[var(--color-purple-primary)]"
       } ${selectedMode ? "cursor-pointer" : ""}`}
       onClick={
         selectedMode && onClick

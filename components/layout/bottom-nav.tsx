@@ -38,7 +38,7 @@ export default function BottomNav() {
           href="/community"
           className={`flex items-center h-[46px] w-[48px] flex-col gap-1 [&_svg]:size-6
             ${
-              pathname === "/community"
+              pathname.includes("/community")
                 ? "text-[var(--color-text-primary)] font-bold"
                 : "text-[var(--color-text-gray-500)]"
             }`}

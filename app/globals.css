@@ -51,7 +51,6 @@ body {
   flex-direction: column;
   align-items: center;
   height: 100dvh;
-  width: 100vw;
   user-select: none;
 }
 

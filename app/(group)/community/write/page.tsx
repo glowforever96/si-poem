@@ -1,10 +1,16 @@
 import { getAllUserHistory } from "@/data/getUserHistory";
 import { auth } from "@/auth";
 import WriteSection from "@/components/write/write-section";
+import { redirect } from "next/navigation";
 
 export default async function WritePage() {
   const session = await auth();
-  const history = await getAllUserHistory(session?.user.id as string);
+
+  if (!session?.user?.id) {
+    redirect("/community");
+  }
+
+  const history = await getAllUserHistory(session.user.id as string);
 
   return (
     <div className="flex w-full flex-col p-4">
