@@ -14,6 +14,7 @@ export async function getPostData(postId: string) {
         content: communityTable.content,
         createdAt: communityTable.createdAt,
         updatedAt: communityTable.updatedAt,
+        image: usersTable.image,
         userNickname: usersTable.nickname,
         userEmail: usersTable.email,
       })

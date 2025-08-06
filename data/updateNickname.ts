@@ -13,8 +13,6 @@ export async function updateNickname(nickname: string) {
     .from(usersTable)
     .where(eq(usersTable.nickname, nickname));
 
-  console.log(existingNickname);
-
   if (existingNickname.length > 0) {
     return { ok: false, error: "이미 존재하는 닉네임입니다." };
   }

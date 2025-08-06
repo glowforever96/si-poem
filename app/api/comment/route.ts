@@ -17,11 +17,13 @@ export async function GET(req: NextRequest) {
         parentId: commentTable.parentId,
         createdAt: commentTable.createdAt,
         userNickname: usersTable.nickname,
+        image: usersTable.image,
       })
       .from(commentTable)
       .leftJoin(usersTable, eq(commentTable.userId, usersTable.id))
       .where(eq(commentTable.postId, Number(postId)))
       .orderBy(commentTable.createdAt);
+
     return NextResponse.json({ comments });
   } catch (error) {
     console.error("댓글 조회 오류:", error);

@@ -5,6 +5,7 @@ import { getRelativeTime } from "@/lib/time";
 import { Button } from "@/components/ui/button";
 import CommentForm from "./comment-form";
 import { Comment } from "@/types/histories";
+import Image from "next/image";
 
 interface CommentListProps {
   postId: number;
@@ -51,9 +52,21 @@ export default function CommentList({
               <div className="space-y-2">
                 <div className="flex justify-between items-start">
                   <div className="flex items-center gap-2">
-                    <span className="font-medium text-sm">
-                      {comment.userNickname || "익명"}
-                    </span>
+                    <div className="flex items-center gap-1">
+                      <div className="w-6 h-6 rounded-full overflow-hidden bg-gray-100 border-2 border-gray-200">
+                        <Image
+                          priority
+                          src={comment.image as string}
+                          width={24}
+                          height={24}
+                          className="w-full h-full object-cover"
+                          alt="유저 프로필 이미지"
+                        />
+                      </div>
+                      <span className="font-medium text-sm">
+                        {comment.userNickname}
+                      </span>
+                    </div>
                     <span className="text-xs text-gray-500">
                       {getRelativeTime(new Date(comment.createdAt))}
                     </span>
@@ -95,9 +108,21 @@ export default function CommentList({
                     >
                       <div className="flex justify-between items-start">
                         <div className="flex items-center gap-2">
-                          <span className="font-medium text-sm">
-                            {reply.userNickname}
-                          </span>
+                          <div className="flex items-center gap-1">
+                            <div className="w-6 h-6 rounded-full overflow-hidden bg-gray-100 border-2 border-gray-200">
+                              <Image
+                                priority
+                                src={reply.image as string}
+                                width={24}
+                                height={24}
+                                className="w-full h-full object-cover"
+                                alt="유저 프로필 이미지"
+                              />
+                            </div>
+                            <span className="font-medium text-sm">
+                              {reply.userNickname}
+                            </span>
+                          </div>
                           <span className="text-xs text-gray-500">
                             {getRelativeTime(new Date(reply.createdAt))}
                           </span>
