@@ -13,6 +13,9 @@ export default async function MyInfoPage() {
       <div className="flex w-full gap-3">
         <ProfileImageUpload currentImageUrl={session?.user.image || null} />
         <div className="flex flex-col gap-2">
+          <div className="text-sm text-gray-500">
+            {session?.user.provider} 로그인
+          </div>
           <div className="text-2xl font-bold">{session?.user.nickname}</div>
           {session?.user.email && (
             <div className="text-sm text-gray-500">{session?.user.email}</div>
