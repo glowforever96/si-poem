@@ -8,6 +8,7 @@ import { getPostData } from "@/data/getPosts";
 import { getComments } from "@/data/getComments";
 import { Comment } from "@/types/histories";
 import { auth } from "@/auth";
+import Image from "next/image";
 
 export default async function PostDetailPage({
   params,
@@ -48,9 +49,21 @@ export default async function PostDetailPage({
           <div className="flex-1">
             <div className="text-xl font-bold mb-3">{post.title}</div>
             <div className="flex items-center gap-2 text-sm text-gray-600">
-              <span className="font-medium">
-                {post.userNickname && post.userNickname}
-              </span>
+              <div className="flex items-center gap-1">
+                <div className="w-6 h-6 rounded-full overflow-hidden bg-gray-100 border-2 border-gray-200">
+                  <Image
+                    priority
+                    src={post.image as string}
+                    width={24}
+                    height={24}
+                    className="w-full h-full object-cover"
+                    alt="유저 프로필 이미지"
+                  />
+                </div>
+                <span className="font-medium">
+                  {post.userNickname && post.userNickname}
+                </span>
+              </div>
               <span>•</span>
               <span>{getRelativeTime(post.createdAt || new Date())}</span>
             </div>
