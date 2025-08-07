@@ -17,10 +17,12 @@ export async function updateNickname(nickname: string) {
     return { ok: false, error: "이미 존재하는 닉네임입니다." };
   }
   if (session?.user.provider === "kakao") {
+    const userId = parseInt(session.user.id as string);
+
     await db
       .update(usersTable)
       .set({ nickname })
-      .where(eq(usersTable.id, parseInt(session.user.id as string)));
+      .where(eq(usersTable.id, userId));
   } else {
     await db
       .update(usersTable)
