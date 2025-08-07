@@ -20,7 +20,7 @@ export const historyTable = pgTable("history", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   userId: integer()
     .notNull()
-    .references(() => usersTable.id),
+    .references(() => usersTable.id, { onDelete: "cascade" }),
   task: varchar({ length: 255 }).notNull(),
   description: varchar({ length: 255 }).notNull(),
   start: timestamp("start").notNull(),
@@ -33,10 +33,10 @@ export const communityTable = pgTable("community", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   userId: integer()
     .notNull()
-    .references(() => usersTable.id),
+    .references(() => usersTable.id, { onDelete: "cascade" }),
   historyId: integer()
     .notNull()
-    .references(() => historyTable.id),
+    .references(() => historyTable.id, { onDelete: "cascade" }),
   title: varchar({ length: 255 }).notNull(),
   content: text("content").notNull(),
   createdAt: timestamp("created_at").defaultNow(),
@@ -47,10 +47,10 @@ export const commentTable = pgTable("comments", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   postId: integer("post_id")
     .notNull()
-    .references(() => communityTable.id),
+    .references(() => communityTable.id, { onDelete: "cascade" }),
   userId: integer("user_id")
     .notNull()
-    .references(() => usersTable.id),
+    .references(() => usersTable.id, { onDelete: "cascade" }),
   content: text("content").notNull(),
   parentId: integer("parent_id"),
   likes: integer("likes").notNull().default(0),
