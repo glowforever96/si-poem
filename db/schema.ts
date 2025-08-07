@@ -53,5 +53,17 @@ export const commentTable = pgTable("comments", {
     .references(() => usersTable.id),
   content: text("content").notNull(),
   parentId: integer("parent_id"),
+  likes: integer("likes").notNull().default(0),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const commentLikesTable = pgTable("comment_likes", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  commentId: integer("comment_id")
+    .notNull()
+    .references(() => commentTable.id, { onDelete: "cascade" }),
+  userId: integer("user_id")
+    .notNull()
+    .references(() => usersTable.id, { onDelete: "cascade" }),
   createdAt: timestamp("created_at").defaultNow(),
 });

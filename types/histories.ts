@@ -9,6 +9,14 @@ export interface UserHistory {
   dateString: string;
 }
 
+export interface GuestHistory {
+  task: string;
+  description: string;
+  start: Date;
+  end: Date;
+  duration: number;
+}
+
 export interface Comment {
   id: number;
   postId: number;
@@ -16,6 +24,9 @@ export interface Comment {
   content: string;
   parentId: number | null;
   createdAt: string;
-  image: string;
-  userNickname: string | null;
+  likes: number;
+  liked: boolean;
+  isMine: boolean;
+  userNickname: string;
+  image: string | null;
 }

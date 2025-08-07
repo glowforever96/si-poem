@@ -1,11 +1,8 @@
 "use client";
-
 import { useState } from "react";
-import { getRelativeTime } from "@/lib/time";
-import { Button } from "@/components/ui/button";
 import CommentForm from "./comment-form";
 import { Comment } from "@/types/histories";
-import Image from "next/image";
+import CommentItem from "./comment-item";
 
 interface CommentListProps {
   postId: number;
@@ -27,7 +24,7 @@ export default function CommentList({
   };
 
   return (
-    <div className="space-y-4 pt-6">
+    <div className="space-y-4 pt-6 pb-6">
       <div className="space-y-4">
         <div className="text-lg font-bold flex items-center justify-between">
           <div>댓글 ({commentLength})</div>
@@ -45,97 +42,15 @@ export default function CommentList({
           </div>
         ) : (
           Object.values(groupedComments).map((comment) => (
-            <div
+            <CommentItem
               key={comment.id}
-              className="flex flex-col gap-2 border-t border-gray-200 pt-6"
-            >
-              <div className="space-y-2">
-                <div className="flex justify-between items-start">
-                  <div className="flex items-center gap-2">
-                    <div className="flex items-center gap-1">
-                      <div className="w-6 h-6 rounded-full overflow-hidden bg-gray-100 border-2 border-gray-200">
-                        <Image
-                          priority
-                          src={comment.image as string}
-                          width={24}
-                          height={24}
-                          className="w-full h-full object-cover"
-                          alt="유저 프로필 이미지"
-                        />
-                      </div>
-                      <span className="font-medium text-sm">
-                        {comment.userNickname}
-                      </span>
-                    </div>
-                    <span className="text-xs text-gray-500">
-                      {getRelativeTime(new Date(comment.createdAt))}
-                    </span>
-                  </div>
-                </div>
-                <p className="text-sm whitespace-pre-wrap">{comment.content}</p>
-                {isLogined && (
-                  <div className="flex justify-end">
-                    <Button
-                      variant="secondary"
-                      size="sm"
-                      onClick={() =>
-                        setReplyingTo(
-                          replyingTo === comment.id ? null : comment.id
-                        )
-                      }
-                      className="text-xs"
-                    >
-                      {replyingTo === comment.id ? "취소" : "대댓글"}
-                    </Button>
-                  </div>
-                )}
-              </div>
-              {replyingTo === comment.id && (
-                <div className="mt-3">
-                  <CommentForm
-                    postId={postId}
-                    parentId={comment.id}
-                    onCommentSubmit={handleCommentSubmit}
-                  />
-                </div>
-              )}
-              {comment.replies.length > 0 && (
-                <div className="mt-3 space-y-2">
-                  {comment.replies.map((reply) => (
-                    <div
-                      key={reply.id}
-                      className="pl-4 border-l-2 border-gray-200"
-                    >
-                      <div className="flex justify-between items-start">
-                        <div className="flex items-center gap-2">
-                          <div className="flex items-center gap-1">
-                            <div className="w-6 h-6 rounded-full overflow-hidden bg-gray-100 border-2 border-gray-200">
-                              <Image
-                                priority
-                                src={reply.image as string}
-                                width={24}
-                                height={24}
-                                className="w-full h-full object-cover"
-                                alt="유저 프로필 이미지"
-                              />
-                            </div>
-                            <span className="font-medium text-sm">
-                              {reply.userNickname}
-                            </span>
-                          </div>
-                          <span className="text-xs text-gray-500">
-                            {getRelativeTime(new Date(reply.createdAt))}
-                          </span>
-                        </div>
-                      </div>
-                      <p className="text-sm whitespace-pre-wrap mt-1">
-                        {reply.content}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+              comment={comment}
+              postId={postId}
+              isLogined={isLogined}
+              replyingTo={replyingTo}
+              setReplyingTo={setReplyingTo}
+              onCommentSubmit={handleCommentSubmit}
+            />
           ))
         )}
       </div>
