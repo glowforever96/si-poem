@@ -12,7 +12,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async signIn({ user, account }) {
       await updateUser({
         email: user.email ?? "",
-        nickname: "",
+        nickname: null,
         image: user.image ?? "",
         providerId: account?.providerAccountId ?? "",
         provider: account?.provider ?? "",

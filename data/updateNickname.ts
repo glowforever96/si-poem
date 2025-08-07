@@ -17,7 +17,12 @@ export async function updateNickname(nickname: string) {
     return { ok: false, error: "이미 존재하는 닉네임입니다." };
   }
   if (session?.user.provider === "kakao") {
-    const userId = parseInt(session.user.id as string);
+    const idRaw = session.user.id;
+    const userId = Number(idRaw);
+
+    if (!idRaw || isNaN(userId)) {
+      return { ok: false, error: "유효하지 않은 사용자 ID입니다." };
+    }
 
     await db
       .update(usersTable)

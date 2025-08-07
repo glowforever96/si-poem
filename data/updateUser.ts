@@ -11,15 +11,30 @@ export async function updateUser({
   providerId,
 }: {
   email: string;
-  nickname?: string;
+  nickname?: string | null;
   image?: string;
   provider: string;
   providerId: string;
 }) {
-  const exisitingUser = await db
-    .select()
-    .from(usersTable)
-    .where(and(eq(usersTable.email, email), eq(usersTable.provider, provider)));
+  let exisitingUser;
+  if (provider === "kakao") {
+    exisitingUser = await db
+      .select()
+      .from(usersTable)
+      .where(
+        and(
+          eq(usersTable.providerId, providerId),
+          eq(usersTable.provider, provider)
+        )
+      );
+  } else {
+    exisitingUser = await db
+      .select()
+      .from(usersTable)
+      .where(
+        and(eq(usersTable.email, email), eq(usersTable.provider, provider))
+      );
+  }
 
   if (exisitingUser.length === 0) {
     await db.insert(usersTable).values({
