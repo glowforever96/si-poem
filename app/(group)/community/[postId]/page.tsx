@@ -19,7 +19,7 @@ export default async function PostDetailPage({
   const session = await auth();
   const [postData, commentsData] = await Promise.all([
     getPostData(postId),
-    getComments(postId),
+    getComments({ postId, userId: session?.user.id as string }),
   ]);
 
   const { post, history } = postData || {};

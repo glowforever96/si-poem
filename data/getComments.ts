@@ -1,8 +1,16 @@
 "use server";
 
-export async function getComments(postId: string) {
+export async function getComments({
+  postId,
+  userId,
+}: {
+  postId: string;
+  userId: string;
+}) {
   const res = await fetch(
-    `${process.env.BASE_URL}/api/comment?postId=${postId}`,
+    `${process.env.BASE_URL}/api/comment?postId=${postId}${
+      userId ? `&userId=${userId}` : ""
+    }`,
     {
       next: {
         tags: ["comments"],
