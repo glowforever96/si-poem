@@ -6,8 +6,8 @@ export default function LogoutButton() {
   return (
     <Button
       onClick={() => signOut({ callbackUrl: "/" })}
-      variant="ghost"
-      className="cursor-pointer"
+      variant="link"
+      className="cursor-pointer text-gray-500"
     >
       로그아웃
     </Button>

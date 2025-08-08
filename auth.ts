@@ -11,7 +11,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async signIn({ user, account }) {
       await updateUser({
-        email: user.email ?? "",
+        email: user.email ?? null,
         nickname: null,
         image: user.image ?? "",
         providerId: account?.providerAccountId ?? "",

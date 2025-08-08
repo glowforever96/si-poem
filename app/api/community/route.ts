@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { communityTable } from "@/db/schema";
+import { communityTable, userPointsTable } from "@/db/schema";
 import { NextRequest, NextResponse } from "next/server";
 
 // 게시글 생성(POST) API
@@ -12,6 +12,12 @@ export async function POST(request: NextRequest) {
       historyId,
       title,
       content,
+    });
+
+    await db.insert(userPointsTable).values({
+      userId,
+      points: 30,
+      reason: "커뮤니티 게시글 작성 1회",
     });
 
     return NextResponse.json({ success: true, data: result });

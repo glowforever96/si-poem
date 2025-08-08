@@ -10,7 +10,7 @@ export async function updateUser({
   provider,
   providerId,
 }: {
-  email: string;
+  email: string | null;
   nickname?: string | null;
   image?: string;
   provider: string;
@@ -32,7 +32,10 @@ export async function updateUser({
       .select()
       .from(usersTable)
       .where(
-        and(eq(usersTable.email, email), eq(usersTable.provider, provider))
+        and(
+          eq(usersTable.email, email as string),
+          eq(usersTable.provider, provider)
+        )
       );
   }
 

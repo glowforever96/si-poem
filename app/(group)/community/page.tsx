@@ -10,15 +10,14 @@ import Image from "next/image";
 
 export default async function CommunityPage() {
   const posts = await getCommunityPosts();
-
   const session = await auth();
 
   return (
     <div className="flex w-full flex-col pt-[16px] pr-[16px] pb-[6rem] pl-[16px]">
       <div className="flex justify-between items-center mb-6">
         <div className="flex flex-col gap-1">
-          <h1 className="text-xl font-bold">커뮤니티</h1>
-          <span className="text-sm text-gray-500">
+          <h1 className="typo-heading-2-bold">커뮤니티</h1>
+          <span className="typo-body-2-regular text-gray-500">
             나의 성장 기록을 공유해보세요!
           </span>
         </div>
@@ -47,7 +46,7 @@ export default async function CommunityPage() {
               className="block"
             >
               <div className="flex flex-col gap-2 border-b border-gray-200 py-4">
-                <p>{post.title}</p>
+                <p className="typo-body-1-medium">{post.title}</p>
                 <div className="flex justify-between">
                   <div className="flex items-center gap-2 text-sm text-gray-600">
                     <div className="flex items-center gap-1">
@@ -61,12 +60,14 @@ export default async function CommunityPage() {
                           alt="유저 프로필 이미지"
                         />
                       </div>
-                      <span className="font-medium">
+                      <span className="typo-body-2-regular text-gray-800">
                         {post.userNickname && post.userNickname}
                       </span>
                     </div>
                     <span>•</span>
-                    <span>{getRelativeTime(post.createdAt || new Date())}</span>
+                    <span className="typo-body-2-regular text-gray-500">
+                      {getRelativeTime(post.createdAt || new Date())}
+                    </span>
                   </div>
                   <div className="flex items-center gap-1">
                     <ChatBubbleIcon />

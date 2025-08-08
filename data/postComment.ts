@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 import { db } from "@/db";
-import { commentTable } from "@/db/schema";
+import { commentTable, userPointsTable } from "@/db/schema";
 import { revalidateTag } from "next/cache";
 
 export async function postComment(_: any, formData: FormData) {
@@ -25,6 +25,12 @@ export async function postComment(_: any, formData: FormData) {
       parentId: parentId ?? null,
     })
     .returning();
+
+  await db.insert(userPointsTable).values({
+    userId,
+    points: 1,
+    reason: "댓글 작성 1회",
+  });
 
   revalidateTag("comments");
 

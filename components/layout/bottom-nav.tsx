@@ -12,10 +12,10 @@ export default function BottomNav() {
       <ul className="mx-auto flex max-w-[500px] justify-between px-[52px] pt-2.5 text-[var(--color-text-gray-500)] font-semibold text-[12px]">
         <Link
           href="/chart"
-          className={`flex items-center h-[46px] w-[48px] flex-col gap-1 [&_svg]:size-6
+          className={`flex items-center h-[46px] w-[48px] flex-col gap-1 [&_svg]:size-6 typo-body-2-medium
             ${
               pathname === "/chart"
-                ? "text-[var(--color-text-primary)] font-bold"
+                ? "text-[var(--color-text-primary)] font-semibold"
                 : "text-[var(--color-text-gray-500)]"
             } `}
         >
@@ -24,10 +24,10 @@ export default function BottomNav() {
         </Link>
         <Link
           href="/home"
-          className={`flex items-center h-[46px] w-[48px] flex-col gap-1 [&_svg]:size-6
+          className={`flex items-center h-[46px] w-[48px] flex-col gap-1 [&_svg]:size-6 typo-body-2-medium
             ${
               pathname === "/home"
-                ? "text-[var(--color-text-primary)] font-bold"
+                ? "text-[var(--color-text-primary)] font-semibold"
                 : "text-[var(--color-text-gray-500)]"
             }`}
         >
@@ -36,10 +36,10 @@ export default function BottomNav() {
         </Link>
         <Link
           href="/community"
-          className={`flex items-center h-[46px] w-[48px] flex-col gap-1 [&_svg]:size-6
+          className={`flex items-center h-[46px] w-[48px] flex-col gap-1 [&_svg]:size-6 typo-body-2-medium
             ${
               pathname.includes("/community")
-                ? "text-[var(--color-text-primary)] font-bold"
+                ? "text-[var(--color-text-primary)] font-semibold"
                 : "text-[var(--color-text-gray-500)]"
             }`}
         >

@@ -4,6 +4,7 @@ import { ArrowLeftIcon, AvatarIcon } from "@radix-ui/react-icons";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import AppLogo from "../ui/app-logo";
+import Image from "next/image";
 
 export default function Header() {
   const pathname = usePathname();
@@ -16,29 +17,42 @@ export default function Header() {
       open();
       return;
     }
-    router.push("/myInfo");
+    router.push("/my-info");
   };
 
   return (
     <header className="w-full h-[54px] bg-[var(--color-bg-secondary)] flex items-center justify-between fixed top-0 z-10 max-w-2xl px-2">
-      {pathname === "/myInfo" ? (
+      {pathname.includes("/my-info") ? (
         <button
           className="w-[32px] h-[32px] flex items-center justify-center cursor-pointer [&_svg]:size-6"
           onClick={() => router.back()}
         >
           <ArrowLeftIcon />
         </button>
-      ) : (
+      ) : status === "loading" ? null : (
         <div className="flex items-center text-[var(--color-text-primary)] font-semibold">
           <button
             className="w-[32px] h-[32px] flex items-center justify-center cursor-pointer"
             onClick={goToMyInfo}
           >
-            <AvatarIcon width={24} height={24} />
+            {!session?.user.id ? (
+              <AvatarIcon width={24} height={24} />
+            ) : (
+              <div className="w-6 h-6 rounded-full overflow-hidden bg-gray-100 border-2 border-gray-200">
+                <Image
+                  priority
+                  src={session?.user.image as string}
+                  width={24}
+                  height={24}
+                  className="w-full h-full object-cover"
+                  alt="유저 프로필 이미지"
+                  placeholder="empty"
+                />
+              </div>
+            )}
           </button>
-          {status === "loading" ? (
-            <span className="text-xs text-gray-400"></span>
-          ) : session?.user.nickname ? (
+
+          {session?.user.nickname ? (
             <span className="text-xs">{`${session.user.nickname} 님`}</span>
           ) : (
             <span className="text-xs">Guest 님</span>

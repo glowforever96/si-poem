@@ -8,7 +8,7 @@ import {
 
 export const usersTable = pgTable("users", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  email: varchar("email", { length: 255 }).notNull().unique(),
+  email: varchar("email", { length: 255 }).unique(),
   nickname: varchar("nickname", { length: 50 }),
   image: text("image"),
   provider: varchar("provider", { length: 50 }),
@@ -66,4 +66,14 @@ export const commentLikesTable = pgTable("comment_likes", {
     .notNull()
     .references(() => usersTable.id, { onDelete: "cascade" }),
   createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const userPointsTable = pgTable("user_points", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  userId: integer()
+    .notNull()
+    .references(() => usersTable.id, { onDelete: "cascade" }),
+  points: integer().notNull(),
+  reason: varchar("reason", { length: 255 }).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });

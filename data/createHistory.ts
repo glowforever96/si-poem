@@ -1,6 +1,6 @@
 "use server";
 import { eq } from "drizzle-orm";
-import { historyTable, usersTable } from "@/db/schema";
+import { historyTable, userPointsTable, usersTable } from "@/db/schema";
 
 import { db } from "@/db";
 import { auth } from "@/auth";
@@ -43,6 +43,12 @@ export async function createHistory(history: {
     end: history.end,
     duration: history.duration,
     dateString: history.dateString,
+  });
+
+  await db.insert(userPointsTable).values({
+    userId: user.id,
+    points: 10,
+    reason: "작업 기록 1회",
   });
 
   revalidateTag("history");
