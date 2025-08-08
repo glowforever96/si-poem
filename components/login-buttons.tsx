@@ -13,10 +13,10 @@ export default function LoginButtons() {
   };
 
   return (
-    <div className="flex flex-col gap-4 text-md mb-12 z-20 text-[var(--color-text-secondary)]">
+    <div className="flex flex-col gap-4 typo-body-1-medium mb-12 z-20 text-[var(--color-text-secondary)]">
       <button
         onClick={() => signIn("kakao", { callbackUrl: "/home" })}
-        className="bg-[var(--color-bg-primary-yellow)] px-4 py-2 rounded-full font-semibold cursor-pointer h-[48px] relative"
+        className="bg-[var(--color-bg-primary-yellow)] px-4 py-2 rounded-full cursor-pointer h-[48px] relative"
       >
         <div className="absolute left-4 top-1/2 -translate-y-1/2">
           <KakaoIcon />
@@ -24,7 +24,7 @@ export default function LoginButtons() {
         카카오로 시작하기
       </button>
       <button
-        className="bg-white px-4 py-2 rounded-full font-semibold cursor-pointer h-[48px] relative"
+        className="bg-white px-4 py-2 rounded-full cursor-pointer h-[48px] relative"
         onClick={() => signIn("google", { callbackUrl: "/home" })}
       >
         <div className="absolute left-4 top-1/2 -translate-y-1/2">
@@ -33,7 +33,7 @@ export default function LoginButtons() {
         Google로 시작하기
       </button>
       <button
-        className="bg-white px-4 py-2 rounded-full font-semibold cursor-pointer h-[48px]"
+        className="bg-white px-4 py-2 rounded-full cursor-pointer h-[48px]"
         onClick={startNotLoggedIn}
       >
         로그인 없이 시작하기

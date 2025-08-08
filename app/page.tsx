@@ -8,9 +8,9 @@ export default function Home() {
       <StarsBanner />
       <div className="flex flex-1 flex-col justify-center items-center text-center gap-4">
         <AppLogo size="5xl" />
-        <p className="text-white font-light text-lg">
-          오늘의 <span className="text-[#6C5CE7] font-medium">특별한 하루</span>
-          를 기록하세요.
+        <p className="text-white typo-heading-3">
+          오늘의 <span className="text-[#6C5CE7]">특별한 하루</span>를
+          기록하세요.
         </p>
       </div>
       <LoginButtons />

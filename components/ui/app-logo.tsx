@@ -9,7 +9,7 @@ export default function AppLogo({
     "5xl": "text-5xl",
     "4xl": "text-4xl",
     "3xl": "text-3xl",
-    "2xl": "text-2xl",
+    "2xl": "typo-display-2",
     xl: "text-xl",
     lg: "text-lg",
     base: "text-base",
