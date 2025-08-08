@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { getRelativeTime } from "@/lib/time";
 import Link from "next/link";
 import { auth } from "@/auth";
@@ -7,9 +6,19 @@ import WriteButton from "@/components/community/write-button";
 import { getCommunityPosts } from "@/data/getCommunityPosts";
 import { ChatBubbleIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
+import FilterChips from "@/components/community/filter-chips";
 
-export default async function CommunityPage() {
-  const posts = await getCommunityPosts();
+export default async function CommunityPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ type: string }>;
+}) {
+  const { type } = await searchParams;
+  const rawType = Number(type);
+  const isValidType = !isNaN(rawType) && rawType >= 0 && rawType <= 9;
+  const validType = isValidType ? rawType : 0;
+
+  const posts = await getCommunityPosts(validType);
   const session = await auth();
 
   return (
@@ -29,15 +38,14 @@ export default async function CommunityPage() {
           <WriteButton />
         )}
       </div>
+      <FilterChips />
       <div className="flex flex-col">
         {posts.length === 0 ? (
-          <Card>
-            <CardContent className="p-6">
-              <p className="text-center text-gray-500">
-                아직 작성된 글이 없습니다.
-              </p>
-            </CardContent>
-          </Card>
+          <p className="mt-20 text-center text-gray-500 typo-body-1-regular">
+            아직 작성된 글이 없습니다.
+            <br />
+            첫번째 게시글을 작성해주세요!
+          </p>
         ) : (
           posts.map((post) => (
             <Link
