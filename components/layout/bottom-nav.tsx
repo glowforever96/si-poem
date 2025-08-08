@@ -35,7 +35,7 @@ export default function BottomNav() {
           <span>작업</span>
         </Link>
         <Link
-          href="/community"
+          href="/community?type=0"
           className={`flex items-center h-[46px] w-[48px] flex-col gap-1 [&_svg]:size-6 typo-body-2-medium
             ${
               pathname.includes("/community")

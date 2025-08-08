@@ -17,6 +17,7 @@ const useTimer = () => {
   // 입력 상태
   const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
+  const [selectType, setSelectType] = useState<string | number>("");
 
   const [startTime, setStartTime] = useState<Date | null>(null);
 
@@ -46,6 +47,7 @@ const useTimer = () => {
         description,
         start: startTime,
         end: new Date(),
+        type: selectType as number,
         duration: seconds,
         dateString: format(startTime, "yyyy-MM-dd"),
       });
@@ -62,6 +64,7 @@ const useTimer = () => {
         description,
         start: startTime,
         end: new Date(),
+        type: selectType as number,
         duration: seconds,
       });
     }
@@ -77,6 +80,7 @@ const useTimer = () => {
   const resetState = () => {
     setSeconds(0);
     setTask("");
+    setSelectType("");
     setDescription("");
     setStartTime(null);
   };
@@ -88,6 +92,8 @@ const useTimer = () => {
     setTask,
     description,
     setDescription,
+    selectType,
+    setSelectType,
     handleStart,
     handlePause,
     handleStop,

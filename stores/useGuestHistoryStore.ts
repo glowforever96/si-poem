@@ -6,6 +6,7 @@ export type GuestHistory = {
   description: string;
   start: Date | null;
   end: Date;
+  type: number;
   duration: number;
 };
 

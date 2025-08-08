@@ -32,6 +32,7 @@ export default function WriteForm({
           historyId: selectedHistory?.id as number,
           title: title,
           content: content,
+          type: selectedHistory?.type,
         }),
       });
       if (!res.ok) {

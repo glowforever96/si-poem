@@ -11,6 +11,7 @@ export async function createHistory(history: {
   description: string;
   start: Date;
   end: Date;
+  type: number;
   duration: number;
   dateString: string;
 }) {
@@ -41,6 +42,7 @@ export async function createHistory(history: {
     description: history.description ?? "",
     start: history.start,
     end: history.end,
+    type: history.type,
     duration: history.duration,
     dateString: history.dateString,
   });

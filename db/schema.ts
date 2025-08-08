@@ -25,6 +25,7 @@ export const historyTable = pgTable("history", {
   description: varchar({ length: 255 }).notNull(),
   start: timestamp("start").notNull(),
   end: timestamp("end").notNull(),
+  type: integer().notNull(),
   duration: integer().notNull(),
   dateString: varchar("date_string", { length: 10 }).notNull(),
 });
@@ -37,6 +38,7 @@ export const communityTable = pgTable("community", {
   historyId: integer()
     .notNull()
     .references(() => historyTable.id, { onDelete: "cascade" }),
+  type: integer().notNull(),
   title: varchar({ length: 255 }).notNull(),
   content: text("content").notNull(),
   createdAt: timestamp("created_at").defaultNow(),

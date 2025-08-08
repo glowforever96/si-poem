@@ -1,3 +1,4 @@
+import { getHistoryTypeString } from "@/lib/getHistoryTypeString";
 import { Card } from "./ui/card";
 import { formatDurationKR, formatKoreanTime } from "@/lib/time";
 
@@ -15,7 +16,7 @@ export default function HistoryCard({
   selectedHistory?: UserHistory | null;
   onClick?: (history: UserHistory) => void;
 }) {
-  const { task, description, start, end, duration } = history;
+  const { task, description, start, end, type, duration } = history;
 
   return (
     <Card
@@ -31,16 +32,21 @@ export default function HistoryCard({
       }
     >
       <div className="flex flex-col gap-1">
-        <div className="font-semibold text-gray-800 truncate">{task}</div>
+        <div className="flex items-center justify-between">
+          <div className="typo-body-1-medium text-gray-800">{task}</div>
+          <div className="typo-body-2-regular text-gray-600">
+            {getHistoryTypeString(type)}
+          </div>
+        </div>
         {description && (
-          <div className="text-sm text-gray-500 truncate">{description}</div>
+          <div className="typo-body-2-medium text-gray-500">{description}</div>
         )}
         <div className="flex justify-between items-end mt-2">
-          <span className="text-sm text-gray-400 font-medium">
+          <span className="typo-caption-medium text-gray-400">
             {start ? formatKoreanTime(start as Date) : "-"} ~{" "}
             {end ? formatKoreanTime(end as Date) : "-"}
           </span>
-          <span className="font-semibold text-[#6C5CE7] text-sm">
+          <span className="typo-body-2-bold text-[#6C5CE7]">
             총 {formatDurationKR(duration)} 집중했어요!
           </span>
         </div>

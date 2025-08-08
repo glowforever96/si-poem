@@ -5,13 +5,14 @@ import { NextRequest, NextResponse } from "next/server";
 // 게시글 생성(POST) API
 export async function POST(request: NextRequest) {
   try {
-    const { userId, historyId, title, content } = await request.json();
+    const { userId, historyId, title, content, type } = await request.json();
 
     const result = await db.insert(communityTable).values({
       userId,
       historyId,
       title,
       content,
+      type,
     });
 
     await db.insert(userPointsTable).values({
