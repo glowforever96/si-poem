@@ -1,5 +1,6 @@
 import { format } from "date-fns";
-
+import { toZonedTime } from "date-fns-tz";
+import { ko } from "date-fns/locale";
 type PointHistoryItem = {
   id: number;
   userId: number;
@@ -12,7 +13,9 @@ export const groupPointByDate = (data: PointHistoryItem[]) => {
   return data.reduce<
     Record<string, { points: number; reason: string; id: number }[]>
   >((acc, item) => {
-    const dateKey = format(new Date(item.createdAt), "M월 d일");
+    const zonedDate = toZonedTime(item.createdAt, "Asia/Seoul");
+    const dateKey = format(zonedDate, "M월 d일", { locale: ko });
+
     const { points, reason, id } = item;
     if (!acc[dateKey]) {
       acc[dateKey] = [];

@@ -39,7 +39,5 @@ export async function GET(
     )
     .orderBy(desc(historyTable.start));
 
-  console.log(history);
-
   return NextResponse.json(history);
 }
