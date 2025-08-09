@@ -2,6 +2,7 @@
 import { auth } from "@/auth";
 import { db } from "@/db";
 import { userPointsTable } from "@/db/schema";
+import { toKST } from "@/lib/time";
 import { desc, eq } from "drizzle-orm";
 
 export async function getUserPointHistory() {
@@ -13,6 +14,8 @@ export async function getUserPointHistory() {
     .from(userPointsTable)
     .where(eq(userPointsTable.userId, userId))
     .orderBy(desc(userPointsTable.createdAt));
-
-  return pointHistory;
+  return pointHistory.map((item) => ({
+    ...item,
+    createdAt: toKST(item.createdAt),
+  }));
 }

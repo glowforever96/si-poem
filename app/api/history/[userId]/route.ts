@@ -10,16 +10,22 @@ export async function GET(
   const { userId } = await params;
 
   const now = new Date();
-  const startOfToday = new Date(
+
+  const startOfTodayKST = new Date(
     now.getFullYear(),
     now.getMonth(),
     now.getDate()
   );
-  const endOfToday = new Date(
+  const endOfTodayKST = new Date(
     now.getFullYear(),
     now.getMonth(),
     now.getDate() + 1
   );
+
+  const startOfTodayUTC = new Date(
+    startOfTodayKST.getTime() - 9 * 60 * 60 * 1000
+  );
+  const endOfTodayUTC = new Date(endOfTodayKST.getTime() - 9 * 60 * 60 * 1000);
 
   const history = await db
     .select()
@@ -27,11 +33,13 @@ export async function GET(
     .where(
       and(
         eq(historyTable.userId, parseInt(userId)),
-        gte(historyTable.start, startOfToday),
-        lt(historyTable.start, endOfToday)
+        gte(historyTable.start, startOfTodayUTC),
+        lt(historyTable.start, endOfTodayUTC)
       )
     )
     .orderBy(desc(historyTable.start));
+
+  console.log(history);
 
   return NextResponse.json(history);
 }

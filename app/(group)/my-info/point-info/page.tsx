@@ -6,7 +6,7 @@ export default async function PointInfoPage() {
   const groupedData = groupPointByDate(data);
 
   return (
-    <div className="flex flex-col p-4 h-[calc(100dvh-9rem)]">
+    <div className="flex flex-col p-4 pb-[8rem]">
       <div className="mb-8">
         <h1 className="typo-heading-2-bold mb-2">포인트 내역</h1>
       </div>

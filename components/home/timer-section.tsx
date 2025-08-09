@@ -39,8 +39,8 @@ export default function TimerSection() {
   );
 
   return (
-    <div className="flex flex-col items-center w-full h-full mt-10">
-      <div className="rounded-2xl shadow-xl border bg-white py-6 px-8 flex flex-col items-center gap-4 mb-10 relative transition-all duration-200">
+    <div className="flex flex-col items-center w-full h-full mt-4">
+      <div className="rounded-2xl shadow-xl border bg-white py-4 px-6 flex flex-col items-center gap-4 mb-10 relative transition-all duration-200">
         <button
           className="bg-[#FEE2E2] text-[#EF4444] absolute top-3 right-3 p-2 rounded-full shadow hover:bg-[#FECACA] transition-all duration-200 disabled:bg-gray-300 disabled:shadow-none disabled:text-[#ffffff] font-medium disabled:cursor-default"
           onClick={handleReset}
@@ -51,7 +51,7 @@ export default function TimerSection() {
         <span className="typo-label text-muted-foreground">
           오늘도 차곡차곡
         </span>
-        <div className="text-5xl font-bold text-[var(--color-purple-primary)] tracking-[0.15em] drop-shadow-sm select-none">
+        <div className="text-4xl font-bold text-[var(--color-purple-primary)] tracking-[0.15em] drop-shadow-sm select-none">
           {formatTime(seconds)}
         </div>
         <div className="flex gap-3 mt-2">

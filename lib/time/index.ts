@@ -1,3 +1,14 @@
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
+export function toKST(date: Date | string | null) {
+  return dayjs.utc(date).tz("Asia/Seoul").toDate();
+}
+
 // 시간 포맷 (hh:mm:ss)
 export const formatTime = (sec: number) => {
   const h = String(Math.floor(sec / 3600)).padStart(2, "0");

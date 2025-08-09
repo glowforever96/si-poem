@@ -2,6 +2,7 @@
 
 import { db } from "@/db";
 import { historyTable } from "@/db/schema";
+import { toKST } from "@/lib/time";
 import { desc, eq } from "drizzle-orm";
 
 // 사용자 오늘 히스토리 조회
@@ -25,5 +26,9 @@ export async function getAllUserHistory(userId: string) {
     .where(eq(historyTable.userId, parseInt(userId)))
     .orderBy(desc(historyTable.start));
 
-  return history;
+  return history.map((h) => ({
+    ...h,
+    start: toKST(h.start),
+    end: toKST(h.end),
+  }));
 }

@@ -6,6 +6,13 @@ import { db } from "@/db";
 import { usersTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google, Kakao],
   callbacks: {
@@ -45,12 +52,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.id = dbUser[0].id.toString();
         session.user.nickname = dbUser[0].nickname ?? "";
         session.user.image = dbUser[0].image ?? "";
-        session.user.createdAt =
-          dbUser[0].createdAt?.toLocaleDateString("ko-KR", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          }) ?? "";
+        session.user.createdAt = dbUser[0].createdAt
+          ? dayjs(dbUser[0].createdAt).tz("Asia/Seoul").format("YYYY년 M월 D일")
+          : "";
       }
       session.user.provider = token.provider as string;
       return session;
