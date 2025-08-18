@@ -18,7 +18,7 @@ export default async function MyInfoPage() {
   const stamps = Array.from({ length: 10 }, (_, i) => i < stampsFilled);
 
   return (
-    <div className="flex flex-col p-4 h-[calc(100dvh-9rem)]">
+    <div className="flex flex-col p-4 pb-[9rem]">
       <div className="mb-8">
         <h1 className="typo-heading-2-bold mb-2">내 정보</h1>
       </div>
@@ -70,7 +70,7 @@ export default async function MyInfoPage() {
           작업 기록 하나당 리워드 한개가 적립됩니다.
         </span>
       </div>
-      <div className="flex justify-end mt-auto">
+      <div className="flex justify-end mt-4">
         <LogoutButton />
       </div>
     </div>

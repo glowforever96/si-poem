@@ -1,10 +1,16 @@
+"use server";
 import { db } from "@/db";
 import { communityTable, historyTable, usersTable } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 
 // 게시글과 유저 정보 조회
 export async function getPostData(postId: string) {
   try {
+    await db
+      .update(communityTable)
+      .set({ views: sql`${communityTable.views} + 1` })
+      .where(eq(communityTable.id, Number(postId)));
+
     const post = await db
       .select({
         id: communityTable.id,
@@ -14,6 +20,7 @@ export async function getPostData(postId: string) {
         content: communityTable.content,
         createdAt: communityTable.createdAt,
         updatedAt: communityTable.updatedAt,
+        views: communityTable.views,
         image: usersTable.image,
         userNickname: usersTable.nickname,
         userEmail: usersTable.email,

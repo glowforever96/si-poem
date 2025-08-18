@@ -4,7 +4,7 @@ import Link from "next/link";
 import { auth } from "@/auth";
 import WriteButton from "@/components/community/write-button";
 import { getCommunityPosts } from "@/data/getCommunityPosts";
-import { ChatBubbleIcon } from "@radix-ui/react-icons";
+import { ChatBubbleIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import FilterChips from "@/components/community/filter-chips";
 
@@ -77,9 +77,15 @@ export default async function CommunityPage({
                       {getRelativeTime(post.createdAt || new Date())}
                     </span>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <ChatBubbleIcon />
-                    <span className="text-xs">{post.commentCount}</span>
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-1">
+                      <EyeOpenIcon />
+                      <span className="text-xs">{post.views}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <ChatBubbleIcon />
+                      <span className="text-xs">{post.commentCount}</span>
+                    </div>
                   </div>
                 </div>
               </div>

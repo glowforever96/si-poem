@@ -43,6 +43,7 @@ export const communityTable = pgTable("community", {
   content: text("content").notNull(),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
+  views: integer().notNull().default(0),
 });
 
 export const commentTable = pgTable("comments", {

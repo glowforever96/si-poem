@@ -17,13 +17,13 @@ export default async function PointInfoPage() {
             {items.map((item) => (
               <li
                 key={item.id}
-                className="flex justify-between items-center p-3 bg-gray-100 rounded-md"
+                className="flex justify-between items-center p-3 bg-gray-100 rounded-md last:mb-3"
               >
                 <div className="typo-body-2-medium text-gray-600">
                   {item.reason}
                 </div>
                 <div className="typo-body-2-bold text-[var(--color-purple-primary)]">
-                  +{item.points}P
+                  + {item.points}P
                 </div>
               </li>
             ))}

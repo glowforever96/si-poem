@@ -1,7 +1,7 @@
 import { getRelativeTime } from "@/lib/time";
 import { notFound } from "next/navigation";
 
-import { ChatBubbleIcon } from "@radix-ui/react-icons";
+import { ChatBubbleIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 import HistoryCard from "@/components/history-card";
 import CommentList from "@/components/community/comment-list";
 import { getPostData } from "@/data/getPosts";
@@ -16,6 +16,7 @@ export default async function PostDetailPage({
   params: Promise<{ postId: string }>;
 }) {
   const { postId } = await params;
+
   const session = await auth();
   const [postData, commentsData] = await Promise.all([
     getPostData(postId),
@@ -67,7 +68,11 @@ export default async function PostDetailPage({
               <span>•</span>
               <span>{getRelativeTime(post.createdAt || new Date())}</span>
             </div>
-            <div className="text-gray-600 mt-3">
+            <div className="text-gray-600 mt-3 flex items-center gap-2">
+              <div className="flex items-center gap-1">
+                <EyeOpenIcon />
+                <span className="text-xs">{post.views}</span>
+              </div>
               <div className="flex items-center gap-1">
                 <ChatBubbleIcon />
                 <span className="text-xs">{commentLength}</span>

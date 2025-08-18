@@ -15,6 +15,7 @@ export async function getCommunityPosts(type: number) {
         content: communityTable.content,
         createdAt: communityTable.createdAt,
         updatedAt: communityTable.updatedAt,
+        views: communityTable.views,
         image: usersTable.image,
         userNickname: usersTable.nickname,
         userEmail: usersTable.email,
